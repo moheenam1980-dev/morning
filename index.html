@@ -48,6 +48,9 @@
   tbody tr:hover td{background:var(--soft)}
   td.n{color:var(--muted)}
   td.d{color:var(--accent)}
+  td.nm{white-space:nowrap}
+  td.d{font-size:.9em}
+
   tr.grp td{background:var(--soft)!important;color:var(--brand);font-weight:500;padding:9px 14px;font-size:.95rem}
   tr.grp td span{color:var(--muted);font-weight:400;margin-inline-start:6px}
   mark{background:var(--hl);color:inherit;border-radius:3px;padding:0 2px}
@@ -59,7 +62,8 @@
     header .logo{width:56px;height:56px;margin-bottom:4px}
     h1{font-size:1.08rem} h2{font-size:.92rem} .sub{font-size:.78rem;padding:1px 10px;margin-top:4px}
     .box input{padding:11px 42px 11px 40px;font-size:1rem}
-    tbody td,thead th{padding:10px 9px;font-size:.93rem}
+    tbody td,thead th{padding:9px 7px;font-size:clamp(.68rem,3.4vw,.9rem)}
+    td.d{font-size:clamp(.62rem,3vw,.82rem)}
     th.n,td.n{width:40px}
   }
 </style>
@@ -88,7 +92,7 @@
 <main>
   <div class="wrap">
     <table>
-      <thead><tr><th class="n">ت</th><th>الاسم</th><th>القسم</th></tr></thead>
+      <thead><tr><th>الاسم</th><th>القسم</th></tr></thead>
       <tbody id="tb"></tbody>
     </table>
     <div class="empty" id="empty">لا توجد نتائج مطابقة للبحث</div>
@@ -141,7 +145,7 @@ function render() {
   const list = ROWS.filter(r => (!dept || r.d === dept) && (!nq || r.k.includes(nq)));
   let html = '';
   for (const r of list) {
-    html += `<tr><td class="n">${r.i}</td><td>${highlight(r.n, nq)}</td><td class="d">${esc(r.d)}</td></tr>`;
+    html += `<tr><td class="nm">${highlight(r.n, nq)}</td><td class="d">${esc(r.d)}</td></tr>`;
   }
   tb.innerHTML = html;
   empty.style.display = list.length ? 'none' : 'block';
